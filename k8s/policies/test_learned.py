@@ -52,7 +52,7 @@ def test_conditioned_actor_requires_omega(tmp_path):
 
 
 def test_config_from_published_run_json():
-    cfg = HERE.parents[1] / "p3" / "_results_backup_vps" / "n3_trace" / "config.json"
+    cfg = HERE.parents[1] / "simulator" / "n3_trace_config.json"
     if not cfg.exists():
         pytest.skip("published config not present")
     xc = learned.config_from_json(cfg, trace_path=TRACE)

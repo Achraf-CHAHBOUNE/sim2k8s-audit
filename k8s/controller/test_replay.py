@@ -8,7 +8,7 @@ allclose) — for every policy type the paper compares. If they pass, the tick
 loop, the bridges, the ledger and the shadow env add no behaviour of their own,
 and every difference measured on the live cluster is the cluster's.
 
-Run:  python -m pytest p4/controller -q
+Run:  python -m pytest k8s/controller -q
 """
 from __future__ import annotations
 

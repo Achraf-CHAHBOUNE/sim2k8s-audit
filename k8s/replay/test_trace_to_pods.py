@@ -1,6 +1,6 @@
 """Unit tests for trace_to_pods.py. No cluster, no Docker, no network.
 
-Run:  python -m pytest p4/replay/test_trace_to_pods.py -q
+Run:  python -m pytest k8s/replay/test_trace_to_pods.py -q
 """
 from __future__ import annotations
 

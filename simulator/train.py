@@ -580,21 +580,16 @@ _CODE_VERSION = None
 
 
 def code_version() -> str:
-    """sha256 over every source a revision run depends on: simulator / harness
-    (p3/code/*.py), methods (p5/methods/*.py), the entry point p5/run_p5_comparison.py, the
-    analysis / validation / calibration / queue code (p5/analysis/*.py) and the queue
-    wrapper script (p5/queue21*.sh; the superseded queue20 draft is not deployed). Paths relative to the tree root are hashed with the
-    content. Data inputs (trace, CALIBRATION.env) are hashed separately into PROVENANCE."""
+    """sha256 over every simulator / harness source (simulator/*.py), paths
+    relative to the repository root hashed with the content. Data inputs are
+    hashed separately into PROVENANCE."""
     global _CODE_VERSION
     if _CODE_VERSION is None:
         import glob
         import hashlib
         here = os.path.dirname(os.path.abspath(__file__))
-        root = os.path.abspath(os.path.join(here, "..", ".."))
+        root = os.path.abspath(os.path.join(here, ".."))
         files = sorted(glob.glob(os.path.join(here, "*.py")))
-        for pat in (("p5", "methods", "*.py"), ("p5", "run_p5_comparison.py"), ("p5", "analysis", "*.py"),
-                    ("p5", "queue21*.sh")):
-            files += sorted(glob.glob(os.path.join(root, *pat)))
         h = hashlib.sha256()
         for f in files:
             h.update(os.path.relpath(f, root).replace(os.sep, "/").encode())

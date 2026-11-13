@@ -5,7 +5,7 @@ The load-bearing test is `test_matches_cloud_env_build_obs`: it constructs a rea
 asserts the bridge reproduces `_build_obs()` exactly. If that passes, the bridge's
 arithmetic is the simulator's arithmetic.
 
-Run:  python -m pytest p4/bridge/test_bridge.py -q
+Run:  python -m pytest k8s/bridge/test_bridge.py -q
 """
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ import pytest
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 sys.path.insert(0, str(HERE))
-sys.path.insert(0, str(REPO / "p4" / "controller"))
+sys.path.insert(0, str(REPO / "k8s" / "controller"))
 import _paths  # noqa: E402  (P3 tree, same rule everywhere)
 
 import action as act                      # noqa: E402

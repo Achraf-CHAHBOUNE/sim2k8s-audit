@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """trace_to_pods.py — turn the P3 Alibaba trace into Kubernetes Pod manifests.
 
-Reads ``p3/code/trace_alibaba.csv`` — the SAME file that drives the simulator
-through ``p3/code/trace.py`` — and emits one Pod manifest per trace row, so that
+Reads ``simulator/trace_alibaba.csv`` — the SAME file that drives the simulator
+through ``simulator/trace.py`` — and emits one Pod manifest per trace row, so that
 the cluster replay and the simulator episodes consume identical input. Nothing
 here contacts a cluster; ``--dry-run`` (the default output mode is stdout) prints
 manifests and a scaling report without Kubernetes, Docker or network.
@@ -57,8 +57,8 @@ from pathlib import Path
 TRACE_HEADER = ["arrival_step", "cpu", "mem", "work", "slack"]
 
 #: Default relative path from this file to the trace the simulator uses.
-#: P3 revision_v2 copy; byte-identical to p3/code/trace_alibaba.csv (sha256 aab04247...).
-DEFAULT_TRACE = Path(__file__).resolve().parents[2] / "p3" / "code" / "trace_alibaba.csv"
+#: P3 revision_v2 copy; byte-identical to simulator/trace_alibaba.csv (sha256 aab04247...).
+DEFAULT_TRACE = Path(__file__).resolve().parents[2] / "simulator" / "trace_alibaba.csv"
 
 ANNOT_PREFIX = "pltr-ma.io"
 
@@ -187,7 +187,7 @@ def load_trace(path: str | Path, max_step: int | None = None,
         if [h.strip() for h in header] != TRACE_HEADER:
             raise TraceFormatError(
                 f"{path}: expected header {TRACE_HEADER}, got {header}. "
-                "This script is tied to the schema documented in p3/code/trace.py."
+                "This script is tied to the schema documented in simulator/trace.py."
             )
         rows: list[TraceRow] = []
         for lineno, rec in enumerate(reader, start=2):

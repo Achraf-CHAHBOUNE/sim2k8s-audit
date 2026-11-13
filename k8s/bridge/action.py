@@ -2,7 +2,7 @@
 """action.py — cloud_env actions (accept / defer / migrate) -> Kubernetes operations.
 
 Mirrors the action application block of ``CloudAllocationEnv.step``
-(p3/code/cloud_env.py:193-209) exactly, and turns each decision into a concrete
+(simulator/cloud_env.py:193-209) exactly, and turns each decision into a concrete
 Kubernetes operation. Default mode is **dry run**: every intended operation is
 logged and returned, and nothing is sent to any cluster. A live cluster is touched
 only when a ``LiveExecutor`` is constructed, which requires the ``kubernetes``
@@ -192,7 +192,7 @@ def plan_step(snap: ClusterSnapshot, actions: Sequence[int]) -> StepPlan:
         is decided by agent j in the same step (cloud_env.py:194-198).
     The first version of this function planned every agent against the
     pre-action snapshot and got both wrong; the controller's end-to-end
-    equivalence test (p4/controller/test_replay.py) caught it. Kubernetes has
+    equivalence test (k8s/controller/test_replay.py) caught it. Kubernetes has
     no notion of this intra-step order at all — it is one more piece of
     simulator semantics the harness has to carry.
     """
@@ -422,7 +422,7 @@ class LiveExecutor:
         409). Fit is checked by the KUBELET after the fact: a pod that does not
         fit goes to phase=Failed with status.reason OutOfcpu / OutOfmemory /
         OutOfpods. So most refusals are invisible here and surface one snapshot
-        later; p4/controller/replay.py detects them from the pod status and
+        later; k8s/controller/replay.py detects them from the pod status and
         re-queues the task. [TO VERIFY ON FIRST RUN] the exact reason strings.
         """
         body = self._client.V1Binding(

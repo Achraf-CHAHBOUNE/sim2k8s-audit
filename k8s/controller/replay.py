@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """replay.py — the P4 replay controller: one tick loop, any policy, any backend.
 
-Each tick reproduces one ``CloudAllocationEnv.step`` (p3/code/cloud_env.py:185-246)
+Each tick reproduces one ``CloudAllocationEnv.step`` (simulator/cloud_env.py:185-246)
 against a cluster that is either simulated or real:
 
     observe(t)      backend snapshot + controller ledger -> bridge/observation.py
@@ -35,10 +35,10 @@ drift-plus-penalty controller reads, and — for policies that read simulator
 internals — a belief about the remaining work of running pods (O-7).
 
 Usage (dry run, no cluster):
-    python p4/controller/replay.py --backend sim --policy heur_local:1.0
-    python p4/controller/replay.py --backend kube-model --policy default --out run.jsonl
+    python k8s/controller/replay.py --backend sim --policy heur_local:1.0
+    python k8s/controller/replay.py --backend kube-model --policy default --out run.jsonl
 Live (only after p4/cluster/up.sh --create; see p4/README.md):
-    python p4/controller/replay.py --backend live --policy learned:w.pt --out live.jsonl
+    python k8s/controller/replay.py --backend live --policy learned:w.pt --out live.jsonl
 """
 from __future__ import annotations
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """learned.py — save, reload and deploy trained PLTR-MA / conditioned-network actors.
 
-WHY THIS EXISTS. P3's harness (p3/code/train.py) trains, evaluates and keeps only
+WHY THIS EXISTS. P3's harness (simulator/train.py) trains, evaluates and keeps only
 the returns; no weights are written anywhere, so there was nothing to deploy on
 the cluster. This module adds weight saving WITHOUT CHANGING ANY P3 FILE:
 
@@ -17,16 +17,16 @@ the cluster. This module adds weight saving WITHOUT CHANGING ANY P3 FILE:
     SAME arithmetic as `MAPPO.act` (mappo.py), so the replay controller can drive
     it like any other policy.
 
-Because p3/code/train.py and run_experiment.py are untouched, P3's defaults are
-unchanged by construction (sha256 of every p3/code file is recorded in each
+Because simulator/train.py and run_experiment.py are untouched, P3's defaults are
+unchanged by construction (sha256 of every simulator file is recorded in each
 weight file's metadata, and can be compared with the published image).
 
 CLI:
-    python p4/policies/learned.py train --variant pltr_ma --seed 0 \
+    python k8s/policies/learned.py train --variant pltr_ma --seed 0 \
         --config p3/_results_backup_vps/n3_trace/config.json \
-        --trace p3/code/trace_alibaba.csv --out p4/policies/weights/pltr_ma_s0.pt
-    python p4/policies/learned.py verify --variant pltr_ma --tiny
-    python p4/policies/learned.py info p4/policies/weights/pltr_ma_s0.pt
+        --trace simulator/trace_alibaba.csv --out k8s/policies/weights/pltr_ma_s0.pt
+    python k8s/policies/learned.py verify --variant pltr_ma --tiny
+    python k8s/policies/learned.py info k8s/policies/weights/pltr_ma_s0.pt
 """
 from __future__ import annotations
 
@@ -43,8 +43,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
-P3_CODE = (REPO / "p3" / "revision_v2" / "src" if os.environ.get("P4_P3_TREE", "archived") == "revision_v2"
-           else REPO / "p3" / "code")   # same rule as controller/_paths.py
+P3_CODE = REPO / "simulator"
 if str(P3_CODE) not in sys.path:
     sys.path.insert(0, str(P3_CODE))
 
@@ -423,7 +422,7 @@ def main(argv=None) -> int:
     v = sub.add_parser("verify")
     v.add_argument("--variant", default="pltr_ma", choices=TRAIN_VARIANTS)
     v.add_argument("--seed", type=int, default=0)
-    v.add_argument("--trace", default=str(REPO / "p3" / "code" / "trace_alibaba.csv"))
+    v.add_argument("--trace", default=str(REPO / "simulator" / "trace_alibaba.csv"))
     v.add_argument("--workdir", default=None)
     i = sub.add_parser("info")
     i.add_argument("path")
@@ -445,7 +444,7 @@ def main(argv=None) -> int:
         meta = {"variant": ns.variant, "seed": ns.seed, "config": asdict(xc),
                 "config_source": ns.config, "train_wall_s": time.time() - t0,
                 "p3_code_sha256": p3_fingerprint(),
-                "trained_by": "p4/policies/learned.py: train.build_variant + "
+                "trained_by": "k8s/policies/learned.py: train.build_variant + "
                               "algo.train(verbose=False), as train._front_job"}
         p = save_algo(algo, ns.out, meta)
         print(f"saved {p}  ({meta['train_wall_s']:.1f}s)")

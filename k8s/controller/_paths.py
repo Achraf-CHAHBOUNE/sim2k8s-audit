@@ -2,7 +2,7 @@
 
 The p4 modules (bridge/, replay/) and the P3 simulator are flat script
 directories, not packages, so we put them on sys.path. Importing this module has
-no other side effect. This release ships the archived P3 simulator (p3/code),
+no other side effect. This release ships the archived P3 simulator (simulator),
 the tree described in the AICSET'26 paper.
 """
 from __future__ import annotations
@@ -14,7 +14,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 P4 = HERE.parent
 REPO = P4.parent
-P3_ARCHIVED = REPO / "p3" / "code"
+P3_ARCHIVED = REPO / "simulator"
 P3_TREE_NAME = "archived"
 P3_CODE = P3_ARCHIVED
 DEFAULT_TRACE = P3_ARCHIVED / "trace_alibaba.csv"          # sha256 aab04247...

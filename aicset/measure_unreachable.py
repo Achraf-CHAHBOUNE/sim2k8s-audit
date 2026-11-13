@@ -1,7 +1,7 @@
 """How often does the simulator visit states that cannot exist on Kubernetes?
 
-Read-only use of p3/code. Settings match P3's trace runs: N=3, horizon=150,
-trace_load=1 (run_experiment.py defaults), p3/code/trace_alibaba.csv.
+Read-only use of simulator. Settings match P3's trace runs: N=3, horizon=150,
+trace_load=1 (run_experiment.py defaults), simulator/trace_alibaba.csv.
 
 Policies:
   random  -- uniform over {accept, defer, migrate}, as at the start of training
@@ -25,11 +25,11 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "p3" / "code"))
+sys.path.insert(0, str(ROOT / "simulator"))
 from cloud_env import CloudAllocationEnv  # noqa: E402
 from trace import WorkloadTrace  # noqa: E402
 
-TRACE = ROOT / "p3" / "code" / "trace_alibaba.csv"
+TRACE = ROOT / "simulator" / "trace_alibaba.csv"
 N, HORIZON = 3, 150
 EPISODES = int(sys.argv[1]) if len(sys.argv) > 1 else 50
 SEED0 = 30000

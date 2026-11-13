@@ -14,15 +14,20 @@ for anything in this repository.
 
 | Path | Content |
 |---|---|
-| `p3/code/` | Simulator (`cloud_env.py`), workload trace loader (`trace.py`), heuristic policies, MAPPO actor/critic and training code; `trace_alibaba.csv` (sha256 `aab04247…e952`) |
-| `p3/_results_backup_vps/n3_trace/config.json` | Run configuration read by one test in `p4/policies/` |
-| `p4/bridge/` | Observation mapping (`observation.py`) and action mapping (`action.py`); `MAPPING.md` is the component-by-component audit table |
-| `p4/controller/` | Replay controller (`replay.py`), simulated and modelled Kubernetes backends (`backends.py`) |
-| `p4/replay/` | Trace-to-pod conversion |
-| `p4/energy/` | Host energy logging (RAPL) |
-| `p4/policies/` | Loading saved actor weights |
+| `simulator/` | Simulator (`cloud_env.py`), workload trace loader (`trace.py`), heuristic policies, MAPPO actor/critic and training code; `trace_alibaba.csv` (sha256 `aab04247…e952`) |
+| `simulator/n3_trace_config.json` | Run configuration read by one test in `k8s/policies/` |
+| `k8s/bridge/` | Observation mapping (`observation.py`) and action mapping (`action.py`); `MAPPING.md` is the component-by-component audit table |
+| `k8s/controller/` | Replay controller (`replay.py`), simulated and modelled Kubernetes backends (`backends.py`) |
+| `k8s/replay/` | Trace-to-pod conversion |
+| `k8s/energy/` | Host energy logging (RAPL) |
+| `k8s/policies/` | Loading saved actor weights |
 | `aicset/measure_unreachable.py` | Rollouts on the trace (N = 3, horizon 150, seeds 30000–30049); writes `measure_unreachable.json` |
 | `aicset/k8s_docs/` | Plain-text snapshots of the cited kubernetes.io pages, each with its source URL and retrieval date; `fetch.py` re-downloads them |
+
+## Naming
+
+Code comments refer to the simulator study as P3 and to the Kubernetes study
+as P4: `simulator/` holds the P3 simulator, `k8s/` the P4 code.
 
 ## Run
 
@@ -30,13 +35,13 @@ Tested with Python 3.13.11, NumPy 2.4.6, pytest 9.0.3, PyTorch 2.12.1 (CPU).
 
 ```
 pip install -r requirements.txt
-python -m pytest p4                      # 122 tests: 38 bridge, 41 controller,
+python -m pytest k8s                     # 122 tests: 38 bridge, 41 controller,
                                          # 25 replay, 13 energy, 5 policies
 python aicset/measure_unreachable.py     # regenerates aicset/measure_unreachable.json
 ```
 
-`measure_unreachable.py` runs in a few seconds; its output reproduces the
-published `measure_unreachable.json` byte for byte.
+`measure_unreachable.py` runs in a few seconds and reproduces the values in the
+published `measure_unreachable.json`.
 
 ## Scope
 

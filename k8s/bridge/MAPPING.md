@@ -1,6 +1,6 @@
 # P4 — simulator ↔ Kubernetes mapping
 
-**What this document is.** `p3/code/cloud_env.py` defines a 9-dimensional
+**What this document is.** `simulator/cloud_env.py` defines a 9-dimensional
 per-agent observation and a 3-action space. This file records, component by
 component, what each one means in the simulator, where it comes from in
 Kubernetes, and whether it is
@@ -16,9 +16,9 @@ thesis is allowed to make is bounded by this list. Everything in (c) is a place
 where "we deployed the policy on a real cluster" would be an overstatement unless
 the qualification travels with it.
 
-Written 2026-09-27, updated 2026-09-28. Sources: `p3/code/cloud_env.py` (line
-numbers below are from that file), `p3/code/trace.py`, `p3/code/make_trace.py`,
-and the measured properties of `p3/code/trace_alibaba.csv`. Nothing here was
+Written 2026-09-27, updated 2026-09-28. Sources: `simulator/cloud_env.py` (line
+numbers below are from that file), `simulator/trace.py`, `simulator/make_trace.py`,
+and the measured properties of `simulator/trace_alibaba.csv`. Nothing here was
 measured on a cluster — **no cluster has been created** (`which k3d` → not found,
 2026-09-27). Every claim about Kubernetes behaviour is from the API contract, and
 each one that a run could contradict is marked **[TO VERIFY ON FIRST RUN]**.
@@ -537,7 +537,7 @@ lives, which is more interesting than a satisfied bound.
 
 ## 5. Addendum 2026-10-04 — what building the replay controller exposed
 
-Written while building `p4/controller/replay.py`. Still **no cluster has been
+Written while building `k8s/controller/replay.py`. Still **no cluster has been
 created**; items marked (code) were found by running code offline, items marked
 (model) come from the `KubeModelBackend`, which is a model, not a measurement.
 

@@ -1,6 +1,6 @@
 """Tests for rapl_log.py. Pure functions plus one short live sampling smoke test.
 
-Run:  python -m pytest p4/energy/test_rapl_log.py -q
+Run:  python -m pytest k8s/energy/test_rapl_log.py -q
 """
 from __future__ import annotations
 

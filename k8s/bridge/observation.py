@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """observation.py — Kubernetes cluster state -> cloud_env observation vector.
 
-Reproduces ``CloudAllocationEnv._build_obs`` (p3/code/cloud_env.py:349-370) from
+Reproduces ``CloudAllocationEnv._build_obs`` (simulator/cloud_env.py:349-370) from
 a Kubernetes snapshot, so a policy trained in the simulator can be driven from a
 real cluster without retraining and without silently changing the meaning of any
 input.
@@ -41,7 +41,7 @@ from typing import Iterable, Literal
 import numpy as np
 
 # --------------------------------------------------------------------------- #
-# Constants copied verbatim from p3/code/cloud_env.py. Keep in sync.
+# Constants copied verbatim from simulator/cloud_env.py. Keep in sync.
 # --------------------------------------------------------------------------- #
 OBS_DIM = 9                 # cloud_env.py:92
 SIM_QUEUE_CAP = 15          # cloud_env.py:115 (default queue_cap)
