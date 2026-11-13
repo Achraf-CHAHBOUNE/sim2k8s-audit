@@ -1,0 +1,40 @@
+{
+  "n_servers": 3,
+  "arrival_rate": 1.4,
+  "horizon": 150,
+  "n_iterations": 400,
+  "n_seeds": 10,
+  "ablation_seeds": 5,
+  "eval_every": 20,
+  "eval_episodes": 10,
+  "V": 0.5,
+  "delta": 0.02,
+  "alpha": 1.0,
+  "V_grid": [
+    0.1,
+    0.3,
+    0.5,
+    1.0,
+    3.0
+  ],
+  "delta_grid": [
+    0.002,
+    0.01,
+    0.02,
+    0.05
+  ],
+  "pareto_grid": 8,
+  "pareto_seeds": 10,
+  "baseline_seeds": 10,
+  "hv_mc": 200000,
+  "baseline_grid": 0,
+  "with_cn": true,
+  "trace_path": "/data/trace_alibaba.csv",
+  "cost_idx": 0,
+  "cost_limit": 0.0,
+  "lam_lr": 0.2,
+  "lam_init": 2.0,
+  "n_workers": 11,
+  "out_dir": "/results/n3_trace",
+  "device": "cpu"
+}

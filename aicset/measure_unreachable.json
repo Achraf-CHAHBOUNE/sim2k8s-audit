@@ -1,0 +1,36 @@
+{
+  "settings": {
+    "N": 3,
+    "horizon": 150,
+    "trace_load": 1,
+    "seeds": [
+      30000,
+      30049
+    ]
+  },
+  "trace": {
+    "populated_steps": 3426,
+    "share_populated_steps_above_N": 0.13047285464098074,
+    "max_arrivals_per_step": 10
+  },
+  "runs": [
+    {
+      "policy": "random",
+      "episodes": 50,
+      "steps": 7500,
+      "share_steps_overcommitted": 0.0038666666666666667,
+      "share_steps_c1_positive": 0.0038666666666666667,
+      "share_obs_in_upper_half": 0.001288888888888889,
+      "peak_utilization": 1.5
+    },
+    {
+      "policy": "accept",
+      "episodes": 50,
+      "steps": 7500,
+      "share_steps_overcommitted": 0.27586666666666665,
+      "share_steps_c1_positive": 0.27586666666666665,
+      "share_obs_in_upper_half": 0.12026666666666666,
+      "peak_utilization": 3.7802
+    }
+  ]
+}
